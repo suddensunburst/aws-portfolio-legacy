@@ -1,6 +1,8 @@
 # vpc
 resource "aws_vpc" "main" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block           = "10.0.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 
   tags = {
     Name = "portfolio-vpc"
@@ -22,12 +24,29 @@ resource "aws_subnet" "public_1c" {
   tags              = { Name = "portfolio-public-1c" }
 }
 
+# private subnets
+resource "aws_subnet" "private_1a" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.3.0/24"
+  availability_zone = "ap-northeast-1a"
+  tags              = { Name = "portfolio-private-1a" }
+}
+
+resource "aws_subnet" "private_1c" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.0.4.0/24"
+  availability_zone = "ap-northeast-1c"
+  tags              = { Name = "portfolio-private-1c" }
+}
+
 # ---- Osaka Region ----
 
 # osaka vpc 10.1.0.0/16
 resource "aws_vpc" "osaka_main" {
-  provider   = aws.osaka
-  cidr_block = "10.1.0.0/16"
+  provider             = aws.osaka
+  cidr_block           = "10.1.0.0/16"
+  enable_dns_support   = true
+  enable_dns_hostnames = true
 
   tags = {
     Name = "portfolio-vpc-osaka"
@@ -49,6 +68,23 @@ resource "aws_subnet" "osaka_public_3c" {
   cidr_block        = "10.1.2.0/24"
   availability_zone = "ap-northeast-3c"
   tags              = { Name = "portfolio-osaka-public-3c" }
+}
+
+# osaka private subnets
+resource "aws_subnet" "osaka_private_3a" {
+  provider          = aws.osaka
+  vpc_id            = aws_vpc.osaka_main.id
+  cidr_block        = "10.1.3.0/24"
+  availability_zone = "ap-northeast-3a"
+  tags              = { Name = "portfolio-osaka-private-3a" }
+}
+
+resource "aws_subnet" "osaka_private_3c" {
+  provider          = aws.osaka
+  vpc_id            = aws_vpc.osaka_main.id
+  cidr_block        = "10.1.4.0/24"
+  availability_zone = "ap-northeast-3c"
+  tags              = { Name = "portfolio-osaka-private-3c" }
 }
 
 # tokyo igw

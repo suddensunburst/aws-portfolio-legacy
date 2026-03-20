@@ -27,6 +27,7 @@ while keeping EC2 instances handling only HTTP internally (no cert management on
 | DNS & Failover | Route 53 + Cloudflare |
 | TLS | ACM (AWS Certificate Manager) |
 | Access | SSM Session Manager (no SSH) |
+| VPC Endpoints | SSM / SSMMessages / EC2Messages in each region |
 | Regions | ap-northeast-1 (Tokyo), ap-northeast-3 (Osaka) |
 
 ## Infrastructure Layout
@@ -39,6 +40,7 @@ security.tf   Security groups (ALB: 80/443 open, EC2: 80 from ALB only)
 dns.tf        Route 53 hosted zone, health checks, Cloudflare NS integration
 acm.tf        ACM certificate request and DNS validation
 iam.tf        IAM role and instance profile for SSM
+endpoints.tf  Endpoints for SSM
 variables.tf  Cloudflare token, zone ID, domain name
 outputs.tf    ALB DNS names, instance IDs
 providers.tf  AWS (tokyo + osaka alias), Cloudflare

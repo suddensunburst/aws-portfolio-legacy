@@ -4,9 +4,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name = "portfolio-vpc"
-  }
+  tags = { Name = "portfolio-vpc" }
 }
 
 # public subnets
@@ -48,9 +46,7 @@ resource "aws_vpc" "osaka_main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = {
-    Name = "portfolio-vpc-osaka"
-  }
+  tags = { Name = "portfolio-vpc-osaka" }
 }
 
 # osaka public subnets
@@ -91,9 +87,7 @@ resource "aws_subnet" "osaka_private_3c" {
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags = {
-    Name = "portfolio-igw"
-  }
+  tags = { Name = "portfolio-igw" }
 }
 
 # osaka igw
@@ -101,9 +95,7 @@ resource "aws_internet_gateway" "osaka" {
   provider = aws.osaka
   vpc_id   = aws_vpc.osaka_main.id
 
-  tags = {
-    Name = "portfolio-igw-osaka"
-  }
+  tags = { Name = "portfolio-igw-osaka" }
 }
 
 # tokyo route table

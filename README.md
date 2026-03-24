@@ -5,15 +5,15 @@ Built as a portfolio project demonstrating IaC practices and multi-region failov
 
 ## Design Decisions
 
-**Why multi-region over multi-AZ only?**  
+**Multi-region over multi-AZ only**  
 Multi-AZ within a single region protects against AZ-level failures but not region-wide outages.  
 This setup adds Osaka as a warm standby, with Route 53 health checks handling automatic failover.
 
-**Why SSM over SSH?**  
+**SSM over SSH**  
 EC2 instances have no inbound SSH port open. Session Manager provides secure shell access  
 without exposing port 22 or managing key pairs, reducing the attack surface.
 
-**Why HTTP→HTTPS redirect at ALB?**  
+**HTTP→HTTPS redirect at ALB**  
 Enforcing TLS termination at the load balancer ensures all traffic is encrypted in transit,  
 while keeping EC2 instances handling only HTTP internally (no cert management on instances).
 
@@ -33,14 +33,13 @@ while keeping EC2 instances handling only HTTP internally (no cert management on
 ## Infrastructure Layout
 
 ```
-vpc.tf        VPC, subnets (public x2 per region), IGW, route tables
+vpc.tf        VPC, subnets (public x2 per region), IGW, route tables, endpoints for SSM
 compute.tf    EC2 instances, AMI via SSM Parameter Store, user_data (Apache)
 alb.tf        ALB, target groups, listeners (HTTP redirect + HTTPS forward)
 security.tf   Security groups (ALB: 80/443 open, EC2: 80 from ALB only)
 dns.tf        Route 53 hosted zone, health checks, Cloudflare NS integration
 acm.tf        ACM certificate request and DNS validation
 iam.tf        IAM role and instance profile for SSM
-endpoints.tf  Endpoints for SSM
 variables.tf  Cloudflare token, zone ID, domain name
 outputs.tf    ALB DNS names, instance IDs
 providers.tf  AWS (tokyo + osaka alias), Cloudflare

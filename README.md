@@ -1,21 +1,7 @@
 # AWS Multi-Region HA Infrastructure
 
-Terraform-managed high-availability infrastructure across AWS Tokyo and Osaka regions.  
-Built as a portfolio project demonstrating IaC practices and multi-region failover design.
-
-## Design Decisions
-
-**Multi-region over multi-AZ only**  
-Multi-AZ within a single region protects against AZ-level failures but not region-wide outages.  
-This setup adds Osaka as a warm standby, with Route 53 health checks handling automatic failover.
-
-**SSM over SSH**  
-EC2 instances have no inbound SSH port open. Session Manager provides secure shell access  
-without exposing port 22 or managing key pairs, reducing the attack surface.
-
-**HTTP→HTTPS redirect at ALB**  
-Enforcing TLS termination at the load balancer ensures all traffic is encrypted in transit,  
-while keeping EC2 instances handling only HTTP internally (no cert management on instances).
+Terraform-managed active-standby infrastructure across Tokyo and Osaka.
+Portfolio project for AWS SAA certification.
 
 ## Stack
 
@@ -23,34 +9,26 @@ while keeping EC2 instances handling only HTTP internally (no cert management on
 |---|---|
 | IaC | Terraform |
 | Compute | EC2 (Amazon Linux 2023, t3.micro) |
-| Load Balancing | ALB (Application Load Balancer) |
+| Load Balancing | ALB |
 | DNS & Failover | Route 53 + Cloudflare |
-| TLS | ACM (AWS Certificate Manager) |
-| Access | SSM Session Manager (no SSH) |
-| VPC Endpoints | SSM / SSMMessages / EC2Messages in each region |
+| TLS | ACM |
+| Access | SSM Session Manager |
 | Regions | ap-northeast-1 (Tokyo), ap-northeast-3 (Osaka) |
 
 ## Infrastructure Layout
 
 ```
-vpc.tf        VPC, subnets (public x2 per region), IGW, route tables, endpoints for SSM
-compute.tf    EC2 instances, AMI via SSM Parameter Store, user_data (Apache)
+vpc.tf        VPC, subnets (public x2 + private x2 per region), IGW, route tables, VPC endpoints for SSM
+compute.tf    EC2 instances (private subnets), AMI via SSM Parameter Store, user_data (Python HTTP server)
 alb.tf        ALB, target groups, listeners (HTTP redirect + HTTPS forward)
-security.tf   Security groups (ALB: 80/443 open, EC2: 80 from ALB only)
+security.tf   Security groups (ALB: 80/443 open, EC2: 80 from ALB only, VPCE: 443 from VPC)
 dns.tf        Route 53 hosted zone, health checks, Cloudflare NS integration
 acm.tf        ACM certificate request and DNS validation
 iam.tf        IAM role and instance profile for SSM
 variables.tf  Cloudflare token, zone ID, domain name
-outputs.tf    ALB DNS names, instance IDs
+outputs.tf    Route 53 NS records, EC2 private IPs
 providers.tf  AWS (tokyo + osaka alias), Cloudflare
 ```
-
-## Security Posture
-
-- EC2 instances accept HTTP **only from ALB security group** (no direct internet access)
-- No SSH port open; instance access via SSM Session Manager
-- HTTPS enforced via ALB listener redirect (HTTP 301 → HTTPS)
-- TLS certificates managed by ACM with automatic renewal
 
 ## Prerequisites
 
@@ -58,28 +36,5 @@ providers.tf  AWS (tokyo + osaka alias), Cloudflare
 # terraform.tfvars
 cloudflare_api_token = "YOUR_CLOUDFLARE_API_TOKEN"
 cloudflare_zone_id   = "YOUR_CLOUDFLARE_ZONE_ID"
-domain_name          = "yourdomain.com"
+main_domain          = "yourdomain.com"
 ```
-
-## Usage
-
-```bash
-terraform init
-terraform plan
-terraform apply
-```
-
-## Status
-
-- [x] VPC / subnet / IGW / route tables (Tokyo + Osaka)
-- [x] EC2 multi-AZ (2 instances per region)
-- [x] ALB with HTTPS and HTTP redirect
-- [x] ACM certificate with DNS validation
-- [x] Route 53 health check + failover routing
-- [x] SSM access (no SSH)
-- [x] Private subnets for EC2
-
-## Future Improvements
-
-- Auto Scaling Group (replace fixed EC2)
-- Terraform modules refactor

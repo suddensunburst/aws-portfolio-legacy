@@ -1,6 +1,6 @@
 # tokyo web security group
 resource "aws_security_group" "tokyo_web_sg" {
-  name   = "portfolio-web-sg"
+  name   = "portfolio-tokyo-web-sg"
   vpc_id = aws_vpc.main.id
 
   # allow http from alb
@@ -19,7 +19,7 @@ resource "aws_security_group" "tokyo_web_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = { Name = "portfolio-web-sg" }
+  tags = { Name = "portfolio-tokyo-web-sg" }
 }
 
 # osaka web security group
@@ -49,7 +49,7 @@ resource "aws_security_group" "osaka_web_sg" {
 
 # tokyo alb security group
 resource "aws_security_group" "tokyo_alb_sg" {
-  name   = "portfolio-alb-sg"
+  name   = "portfolio-tokyo-alb-sg"
   vpc_id = aws_vpc.main.id
 
   # allow http (80 for redirection)
@@ -76,14 +76,14 @@ resource "aws_security_group" "tokyo_alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = { Name = "portfolio-alb-sg" }
+  tags = { Name = "portfolio-tokyo-alb-sg" }
 }
 
 
 # osaka alb security group
 resource "aws_security_group" "osaka_alb_sg" {
   provider = aws.osaka
-  name     = "osaka-portfolio-alb-sg"
+  name     = "portfolio-osaka-alb-sg"
   vpc_id   = aws_vpc.osaka_main.id
 
   # allow http (80 for redirection)
@@ -110,12 +110,12 @@ resource "aws_security_group" "osaka_alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = { Name = "osaka-portfolio-alb-sg" }
+  tags = { Name = "portfolio-osaka-alb-sg" }
 }
 
 # tokyo vpc end point sg
 resource "aws_security_group" "tokyo_vpce_sg" {
-  name   = "portfolio-vpce-sg"
+  name   = "portfolio-tokyo-vpce-sg"
   vpc_id = aws_vpc.main.id
 
   ingress {
@@ -130,7 +130,7 @@ resource "aws_security_group" "tokyo_vpce_sg" {
 # osaka vpc end point sg
 resource "aws_security_group" "osaka_vpce_sg" {
   provider = aws.osaka
-  name     = "osaka-portfolio-vpce-sg"
+  name     = "portfolio-osaka-vpce-sg"
   vpc_id   = aws_vpc.osaka_main.id
 
   ingress {

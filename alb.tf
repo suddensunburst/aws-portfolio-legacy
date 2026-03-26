@@ -1,20 +1,20 @@
 # TOKYO
 # ALB Tokyo
 resource "aws_lb" "tokyo_alb" {
-  name               = "portfolio-alb"
+  name               = "portfolio-tokyo-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.tokyo_alb_sg.id]
   subnets            = [aws_subnet.public_1a.id, aws_subnet.public_1c.id]
 
   tags = {
-    Name = "tokyo-portfolio-alb"
+    Name = "portfolio-tokyo-alb"
   }
 }
 
 # target group Tokyo
 resource "aws_lb_target_group" "tokyo_tg" {
-  name        = "portfolio-tg"
+  name        = "portfolio-tokyo-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
@@ -76,21 +76,21 @@ resource "aws_lb_target_group_attachment" "tokyo_1c" {
 # ALB Osaka
 resource "aws_lb" "osaka_alb" {
   provider           = aws.osaka
-  name               = "osaka-portfolio-alb"
+  name               = "portfolio-osaka-alb"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.osaka_alb_sg.id]
   subnets            = [aws_subnet.osaka_public_3a.id, aws_subnet.osaka_public_3c.id]
 
   tags = {
-    Name = "osaka-portfolio-alb"
+    Name = "portfolio-osaka-alb"
   }
 }
 
 # target group Osaka
 resource "aws_lb_target_group" "osaka_tg" {
   provider    = aws.osaka
-  name        = "osaka-portfolio-tg"
+  name        = "portfolio-osaka-tg"
   port        = 80
   protocol    = "HTTP"
   vpc_id      = aws_vpc.osaka_main.id

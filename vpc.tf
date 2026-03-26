@@ -4,7 +4,7 @@ resource "aws_vpc" "main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = { Name = "portfolio-vpc" }
+  tags = { Name = "portfolio-tokyo-vpc" }
 }
 
 # public subnets
@@ -12,14 +12,14 @@ resource "aws_subnet" "public_1a" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-northeast-1a"
-  tags              = { Name = "portfolio-public-1a" }
+  tags              = { Name = "portfolio-tokyo-public-1a" }
 }
 
 resource "aws_subnet" "public_1c" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = "ap-northeast-1c"
-  tags              = { Name = "portfolio-public-1c" }
+  tags              = { Name = "portfolio-tokyo-public-1c" }
 }
 
 # private subnets
@@ -27,14 +27,14 @@ resource "aws_subnet" "private_1a" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.3.0/24"
   availability_zone = "ap-northeast-1a"
-  tags              = { Name = "portfolio-private-1a" }
+  tags              = { Name = "portfolio-tokyo-private-1a" }
 }
 
 resource "aws_subnet" "private_1c" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = "10.0.4.0/24"
   availability_zone = "ap-northeast-1c"
-  tags              = { Name = "portfolio-private-1c" }
+  tags              = { Name = "portfolio-tokyo-private-1c" }
 }
 
 # ---- Osaka Region ----
@@ -46,7 +46,7 @@ resource "aws_vpc" "osaka_main" {
   enable_dns_support   = true
   enable_dns_hostnames = true
 
-  tags = { Name = "portfolio-vpc-osaka" }
+  tags = { Name = "portfolio-osaka-vpc" }
 }
 
 # osaka public subnets
@@ -87,7 +87,7 @@ resource "aws_subnet" "osaka_private_3c" {
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 
-  tags = { Name = "portfolio-igw" }
+  tags = { Name = "portfolio-tokyo-igw" }
 }
 
 # osaka igw
@@ -95,7 +95,7 @@ resource "aws_internet_gateway" "osaka" {
   provider = aws.osaka
   vpc_id   = aws_vpc.osaka_main.id
 
-  tags = { Name = "portfolio-igw-osaka" }
+  tags = { Name = "portfolio-osaka-igw" }
 }
 
 # tokyo route table
@@ -107,7 +107,7 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.main.id
   }
 
-  tags = { Name = "portfolio-public-rt" }
+  tags = { Name = "portfolio-tokyo-public-rt" }
 }
 
 # associate the tokyo route table to the public subnet 1a

@@ -4,7 +4,7 @@ resource "aws_acm_certificate" "cert" {
   domain_name       = "portfolio.${var.main_domain}"
   validation_method = "DNS"
 
-  tags = { Name = "portfolio-cert" }
+  tags = { Name = "portfolio-tokyo-cert" }
 
   lifecycle {
     create_before_destroy = true
@@ -46,7 +46,7 @@ resource "aws_acm_certificate" "osaka_cert" {
   }
 
   tags = {
-    Name = "osaka-portfolio-cert"
+    Name = "portfolio-osaka-cert"
   }
 }
 

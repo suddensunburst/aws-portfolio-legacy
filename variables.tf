@@ -12,5 +12,4 @@ variable "cloudflare_zone_id" {
 variable "main_domain" {
   description = "The root domain name"
   type        = string
-  default     = "vexations.org"
 }

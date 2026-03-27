@@ -55,14 +55,3 @@ resource "aws_lb_listener" "https" {
     target_group_arn = aws_lb_target_group.main.arn
   }
 }
-
-# attach to web instances
-resource "aws_lb_target_group_attachment" "web_a" {
-  target_group_arn = aws_lb_target_group.main.arn
-  target_id        = aws_instance.web_a.id
-}
-
-resource "aws_lb_target_group_attachment" "web_c" {
-  target_group_arn = aws_lb_target_group.main.arn
-  target_id        = aws_instance.web_c.id
-}

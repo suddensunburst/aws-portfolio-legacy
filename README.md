@@ -32,7 +32,7 @@ modules/region/
   security.tf   Security groups (ALB: 80/443 open, EC2: 80 from ALB only, VPCE: 443 from VPC)
   acm.tf        ACM certificate request and DNS validation
   variables.tf  Region-specific inputs
-  outputs.tf    ALB DNS name/zone ID
+  outputs.tf    ALB DNS name/zone ID (consumed by root dns.tf)
 ```
 
 ## Prerequisites

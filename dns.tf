@@ -11,8 +11,8 @@ resource "aws_route53_record" "portfolio_primary" {
 
   # use an alias when using alb (free and fast)
   alias {
-    name                   = aws_lb.tokyo_alb.dns_name
-    zone_id                = aws_lb.tokyo_alb.zone_id
+    name                   = module.tokyo.alb_dns_name
+    zone_id                = module.tokyo.alb_zone_id
     evaluate_target_health = true
   }
 
@@ -32,8 +32,8 @@ resource "aws_route53_record" "osaka_failover" {
 
   # specify alb as an alias
   alias {
-    name                   = aws_lb.osaka_alb.dns_name
-    zone_id                = aws_lb.osaka_alb.zone_id
+    name                   = module.osaka.alb_dns_name
+    zone_id                = module.osaka.alb_zone_id
     evaluate_target_health = true
   }
 

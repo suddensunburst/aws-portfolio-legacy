@@ -5,10 +5,10 @@ output "portfolio_ns" {
 
 # show the private ip of tokyo main instance
 output "tokyo_web_private_ip" {
-  value = aws_instance.tokyo_web_1a.private_ip
+  value = module.tokyo.web_a_private_ip
 }
 
 # show the private ip of osaka main instance
 output "osaka_web_private_ip" {
-  value = aws_instance.osaka_web_3a.private_ip
+  value = module.osaka.web_a_private_ip
 }

@@ -54,7 +54,7 @@ resource "aws_security_group" "alb" {
   tags = { Name = "portfolio-${var.region_name}-alb-sg" }
 }
 
-# vpc end point sg
+# vpc endpoint sg
 resource "aws_security_group" "vpce" {
   name   = "portfolio-${var.region_name}-vpce-sg"
   vpc_id = aws_vpc.main.id

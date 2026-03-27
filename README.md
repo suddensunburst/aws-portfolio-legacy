@@ -1,7 +1,7 @@
 # AWS Multi-Region HA Infrastructure
 
 Terraform-managed active-standby infrastructure across Tokyo and Osaka.
-Portfolio project for AWS SAA certification.
+Portfolio project for AWS SAA certification (→Passed the exam, but I'm still gonna work on it).
 
 ## Stack
 

@@ -18,7 +18,7 @@ Portfolio project for AWS SAA certification (→Passed the exam, but I'm still g
 ## Infrastructure Layout
 
 ```
-main.tf       module "tokyo" and module "osaka" instantiation
+main.tf       module "tokyo" and module "osaka" calls
 dns.tf        Route 53 hosted zone, failover records, Cloudflare NS integration
 iam.tf        IAM role and instance profile for SSM (shared)
 variables.tf  Cloudflare token, zone ID, domain name

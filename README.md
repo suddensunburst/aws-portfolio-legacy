@@ -28,6 +28,8 @@ providers.tf  AWS (tokyo + osaka alias), Cloudflare
 modules/region/
   vpc.tf        VPC, subnets (public x2 + private x2), IGW, route tables, VPC endpoints for SSM
   compute.tf    ASG + launch template (min 1 / max 3), CPU-based scaling, CloudWatch alarms
+               # desired=1 for now for cost reasons. AZ-level redundancy is intentionally omitted;
+               # cross-region failover via Route 53 covers region-level HA.
   alb.tf        ALB, target groups, listeners (HTTP redirect + HTTPS forward)
   security.tf   Security groups (ALB: 80/443 open, EC2: 80 from ALB only, VPCE: 443 from VPC)
   acm.tf        ACM certificate request and DNS validation

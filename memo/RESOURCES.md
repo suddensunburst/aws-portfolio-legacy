@@ -1,7 +1,5 @@
 # Terraform Resource Reference
 
-実装したい構成に必要なリソースのチートシート。
-
 ---
 
 ## VPC
@@ -18,7 +16,7 @@ aws_route_table_association
 
 ```
 # VPCエンドポイント（プライベートサブネットから接続する場合）
-aws_vpc_endpoint  ×3 (ssm / ssmmessages / ec2messages)
+aws_vpc_endpoint  x3 (ssm / ssmmessages / ec2messages)
 aws_security_group  (VPCエンドポイント用: 443 from VPC CIDR)
 
 # IAM
@@ -27,10 +25,10 @@ aws_iam_role_policy_attachment  (AmazonSSMManagedInstanceCore)
 aws_iam_instance_profile
 ```
 
-## EC2（固定台数）
+## EC2（固定台数の場合）
 
 ```
-data.aws_ssm_parameter  (最新AMI取得)
+data.aws_ssm_parameter  (AMI取得)
 aws_instance
 aws_security_group  (web用: 80 from ALB SG only)
 ```
@@ -38,17 +36,17 @@ aws_security_group  (web用: 80 from ALB SG only)
 ## Auto Scaling Group
 
 ```
-data.aws_ssm_parameter  (最新AMI取得)
+data.aws_ssm_parameter
 aws_launch_template
 aws_autoscaling_group
-aws_security_group  (web用: 80 from ALB SG only)
+aws_security_group
 
 # CPUスケーリング
-aws_autoscaling_policy  ×2 (scale-out / scale-in)
-aws_cloudwatch_metric_alarm  ×2 (cpu-high / cpu-low)
+aws_autoscaling_policy  x2 (scale-out / scale-in)
+aws_cloudwatch_metric_alarm  x2 (cpu-high / cpu-low)
 ```
 
-## ALB（HTTP→HTTPSリダイレクト）
+## ALB（HTTP→HTTPS redirect）
 
 ```
 aws_lb
@@ -57,7 +55,7 @@ aws_lb_listener  ×2 (80 redirect / 443 forward)
 aws_security_group  (ALB用: 80/443 from 0.0.0.0/0)
 
 # EC2固定台数の場合
-aws_lb_target_group_attachment  ×インスタンス数
+aws_lb_target_group_attachment  xインスタンス数
 
 # ASGの場合
 → aws_autoscaling_group の target_group_arns で紐付け（attachmentは不要）

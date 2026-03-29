@@ -10,7 +10,7 @@ Portfolio project for AWS SAA certification (→Passed the exam, but I'm still g
 | IaC | Terraform |
 | Compute | ASG + EC2 (Amazon Linux 2023, t3.micro) |
 | Load Balancing | ALB |
-| DNS & Failover | Route 53 + Cloudflare |
+| DNS & Failover | Cloudflare + Route 53 |
 | TLS | ACM |
 | Access | SSM Session Manager |
 | Regions | ap-northeast-1 (Tokyo), ap-northeast-3 (Osaka) |
@@ -18,12 +18,12 @@ Portfolio project for AWS SAA certification (→Passed the exam, but I'm still g
 ## Infrastructure Layout
 
 ```
-main.tf       module "tokyo" and module "osaka" calls
-dns.tf        Route 53 hosted zone, failover records, Cloudflare NS integration
-iam.tf        IAM role and instance profile for SSM (shared)
+main.tf       module "tokyo" and module "osaka"
+dns.tf        Route 53 hosted zone, failover, Cloudflare integration
+iam.tf        IAM role and instance profile for SSM
 variables.tf  Cloudflare token, zone ID, domain name
 outputs.tf    Route 53 NS records
-providers.tf  AWS (tokyo + osaka alias), Cloudflare
+providers.tf  AWS, Cloudflare
 
 modules/region/
   vpc.tf        VPC, subnets (public x2 + private x2), IGW, route tables, VPC endpoints for SSM

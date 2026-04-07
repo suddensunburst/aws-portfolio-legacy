@@ -22,3 +22,28 @@ resource "aws_iam_instance_profile" "ssm_profile" {
   name = "portfolio-ssm-profile"
   role = aws_iam_role.ssm_role.name
 }
+
+# dynamodb access
+data "aws_caller_identity" "current" {}
+
+resource "aws_iam_role_policy" "dynamodb_access" {
+  name = "portfolio-dynamodb-access"
+  role = aws_iam_role.ssm_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:Scan",
+        "dynamodb:Query"
+      ]
+      Resource = [
+        "arn:aws:dynamodb:*:${data.aws_caller_identity.current.account_id}:table/portfolio-messages"
+      ]
+    }]
+  })
+}

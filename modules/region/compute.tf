@@ -19,8 +19,8 @@ user_data = base64encode(<<-EOF
 #!/bin/bash
 set -e
 mkdir -p /app /tmp/wheels
-aws s3 cp s3://${aws_s3_bucket.app.bucket}/app/main.py /app/main.py
-aws s3 sync s3://${aws_s3_bucket.app.bucket}/wheels/ /tmp/wheels/
+aws s3 cp s3://portfolio-app-${data.aws_caller_identity.current.account_id}-${var.region_name}/app/main.py /app/main.py
+aws s3 sync s3://portfolio-app-${data.aws_caller_identity.current.account_id}-${var.region_name}/wheels/ /tmp/wheels/
 python3 -m ensurepip
 python3 -m pip install --no-index --find-links /tmp/wheels flask boto3
 

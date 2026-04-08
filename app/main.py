@@ -2,12 +2,13 @@ from flask import Flask, request, jsonify
 import uuid
 from datetime import datetime, timezone
 import boto3
+import os
 
 # appを初期化
 app = Flask(__name__)
 
 # DynamoDBクライアントを初期化
-dynamodb = boto3.resource("dynamodb")
+dynamodb = boto3.resource("dynamodb", region_name=os.environ["AWS_DEFAULT_REGION"])
 table = dynamodb.Table("portfolio-messages")
 
 # GET /

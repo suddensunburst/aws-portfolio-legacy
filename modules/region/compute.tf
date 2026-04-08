@@ -15,27 +15,43 @@ resource "aws_launch_template" "web" {
     name = var.iam_instance_profile
   }
   // launch_template won't convert base64 automatically
-  user_data = base64encode(<<-EOF
-    #!/bin/bash
-    mkdir -p /var/www/html
-    echo "<h1>${var.region_name}</h1>" > /var/www/html/index.html
-    cat > /etc/systemd/system/httpserver.service <<'UNIT'
-    [Unit]
-    Description=Simple HTTP Server
-    After=network.target
+user_data = base64encode(<<-EOF
+#!/bin/bash
+set -e
+mkdir -p /app /tmp/wheels
+aws s3 cp s3://${aws_s3_bucket.app.bucket}/app/main.py /app/main.py
+aws s3 sync s3://${aws_s3_bucket.app.bucket}/wheels/ /tmp/wheels/
+python3 -m ensurepip
+python3 -m pip install --no-index --find-links /tmp/wheels flask boto3
 
-    [Service]
-    ExecStart=/usr/bin/python3 -m http.server 80 --directory /var/www/html
-    Restart=always
-    User=root
 
-    [Install]
-    WantedBy=multi-user.target
-    UNIT
-    systemctl enable httpserver
-    systemctl start httpserver
-  EOF
-  )
+# IMDSv2: まずトークンを取得
+TOKEN=$(curl -s -X PUT http://169.254.169.254/latest/api/token \
+  -H "X-aws-ec2-metadata-token-ttl-seconds:60")
+
+# トークンを使ってリージョンを取得
+REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/region \
+  -H "X-aws-ec2-metadata-token: $TOKEN")
+
+cat > /etc/systemd/system/portfolio.service <<UNIT
+[Unit]
+Description=Portfolio Flask App
+After=network.target
+
+[Service]
+Environment=AWS_DEFAULT_REGION=$${REGION}
+ExecStart=/usr/bin/python3 /app/main.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+UNIT
+
+systemctl enable portfolio
+systemctl start portfolio
+EOF
+)
 }
 
 resource "aws_autoscaling_group" "web" {
@@ -52,7 +68,7 @@ resource "aws_autoscaling_group" "web" {
   }
 
   health_check_type         = "ELB"
-  health_check_grace_period = 60
+  health_check_grace_period = 300
 
   tag {
     key                 = "Name"
@@ -64,6 +80,7 @@ resource "aws_autoscaling_group" "web" {
     aws_vpc_endpoint.ssm,
     aws_vpc_endpoint.ssmmessages,
     aws_vpc_endpoint.ec2messages,
+    aws_vpc_endpoint.s3,
   ]
 }
 

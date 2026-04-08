@@ -64,6 +64,22 @@ resource "aws_route_table_association" "public_c" {
   route_table_id = aws_route_table.public.id
 }
 
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.main.id
+  tags = { Name = "portfolio-${var.region_name}-private-rt"}
+}
+
+resource "aws_route_table_association" "private_a" {
+  subnet_id = aws_subnet.private_a.id
+  route_table_id = aws_route_table.private.id
+}
+
+resource "aws_route_table_association" "private_c" {
+  subnet_id = aws_subnet.private_c.id
+  route_table_id = aws_route_table.private.id
+  
+}
+
 # ssm endpoints
 resource "aws_vpc_endpoint" "ssm" {
   vpc_id              = aws_vpc.main.id
@@ -93,4 +109,22 @@ resource "aws_vpc_endpoint" "ec2messages" {
   subnet_ids         = [aws_subnet.private_a.id, aws_subnet.private_c.id]
   security_group_ids = [aws_security_group.vpce.id]
   tags = { Name = "portfolio-vpce-${var.region_name}-ec2messages" }
+}
+
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region_code}.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids = [aws_route_table.private.id]
+  tags = { Name = "portfolio-vpce-${var.region_name}-s3"}
+}
+
+resource "aws_vpc_endpoint" "dynamodb" {
+  vpc_id = aws_vpc.main.id
+  service_name = "com.amazonaws.${var.region_code}.dynamodb"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids = [aws_route_table.private.id]
+  tags = { Name = "portfolio-vpce-${var.region_name}-dynamodb" }
+  
 }

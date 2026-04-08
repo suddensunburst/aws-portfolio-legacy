@@ -10,8 +10,8 @@ resource "aws_lb" "main" {
 
 # target group
 resource "aws_lb_target_group" "main" {
-  name        = "portfolio-${var.region_name}-tg"
-  port        = 80
+  name_prefix = "ptftg-"
+  port        = 8080
   protocol    = "HTTP"
   vpc_id      = aws_vpc.main.id
   target_type = "instance"
@@ -19,10 +19,14 @@ resource "aws_lb_target_group" "main" {
   health_check {
     path                = "/"
     healthy_threshold   = 2
-    unhealthy_threshold = 2
+    unhealthy_threshold = 3
     timeout             = 5
-    interval            = 10
+    interval            = 30
     matcher             = "200"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }
 
@@ -47,7 +51,7 @@ resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.main.arn
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  ssl_policy = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = aws_acm_certificate_validation.main.certificate_arn
 
   default_action {

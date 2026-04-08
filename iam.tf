@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 # create a role for ssm
 resource "aws_iam_role" "ssm_role" {
   name = "portfolio-ssm-role"
@@ -23,9 +25,31 @@ resource "aws_iam_instance_profile" "ssm_profile" {
   role = aws_iam_role.ssm_role.name
 }
 
-# dynamodb access
-data "aws_caller_identity" "current" {}
+#s3 access
+resource "aws_iam_role_policy" "s3_read" {
+  name = "portfolio-s3-read"
+  role = aws_iam_role.ssm_role.id
 
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = ["s3:GetObject"]
+        Resource = ["arn:aws:s3:::portfolio-app-${data.aws_caller_identity.current.account_id}-*/*"]
+      },
+      {
+        Effect   = "Allow"
+        Action   = ["s3:ListBucket"]
+        Resource = ["arn:aws:s3:::portfolio-app-${data.aws_caller_identity.current.account_id}-*"]
+      }
+
+    ]
+  })
+}
+
+
+# dynamodb access
 resource "aws_iam_role_policy" "dynamodb_access" {
   name = "portfolio-dynamodb-access"
   role = aws_iam_role.ssm_role.id

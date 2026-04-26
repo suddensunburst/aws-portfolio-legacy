@@ -1,0 +1,455 @@
+<mxfile host="Electron" version="29.6.1">
+  <diagram name="Page-1" id="diagram-1">
+    <mxGraphModel dx="1500" dy="1000" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="2160" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- TITLE BLOCK -->
+        <mxCell id="title-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="50" y="30" width="1380" height="83" as="geometry" />
+        </mxCell>
+        <mxCell id="title-text" style="text;html=1;resizable=1;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=30;fontStyle=1;fontFamily=Helvetica;" value="AWS Portfolio — Multi-Region Active/Passive" vertex="1" parent="title-group">
+          <mxGeometry width="1100" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle-text" style="text;html=1;resizable=0;points=[];autosize=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=16;fontFamily=Helvetica;" value="Tokyo (Primary) / Osaka (Secondary) failover · DynamoDB Global Table · ALB + ASG · SSM Session Manager" vertex="1" parent="title-group">
+          <mxGeometry x="5" y="40" width="1100" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="title-separator" style="line;strokeWidth=2;html=1;fontSize=14;strokeColor=#FF9900;fontFamily=Helvetica;" value="" vertex="1" parent="title-group">
+          <mxGeometry x="5" y="70" width="1370" height="10" as="geometry" />
+        </mxCell>
+
+        <!-- EXTERNAL ACTORS -->
+        <mxCell id="users-container" style="fillColor=#f5f5f5;strokeColor=light-dark(#666666,#D4D4D4);rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#333333;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1;" value="Users" vertex="1" parent="1">
+          <mxGeometry x="90" y="158" width="107" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="users-icon" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#232F3D;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.users;fontFamily=Helvetica;" value="" vertex="1" parent="users-container">
+          <mxGeometry x="30" y="20" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- Cloudflare (CDN/DNS, non-AWS) -->
+        <mxCell id="svc-group-cloudflare" style="fillColor=#EDE7F6;strokeColor=#8C4FFF;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#8C4FFF;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="CDN / DNS" vertex="1" parent="1">
+          <mxGeometry x="258" y="152" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-cloudflare" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;fontFamily=Helvetica;" value="Cloudflare&lt;div&gt;&lt;i&gt;NS delegation&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-cloudflare">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- AWS CLOUD BOUNDARY -->
+        <mxCell id="aws-cloud" style="points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];shape=mxgraph.aws4.group_aws_cloud;fillColor=light-dark(#232F3E0D,#232F3E0D);fillStyle=auto;strokeColor=#232F3E;strokeWidth=2;fontStyle=1;fontSize=14;fontFamily=Helvetica;verticalAlign=top;align=right;spacingTop=5;fontColor=#232F3E;container=1;collapsible=0;pointerEvents=0;" value="AWS Cloud" vertex="1" parent="1">
+          <mxGeometry x="50" y="290" width="1380" height="840" as="geometry" />
+        </mxCell>
+
+        <!-- Route 53 -->
+        <mxCell id="svc-group-r53" style="fillColor=#EDE7F6;strokeColor=#8C4FFF;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#8C4FFF;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="DNS" vertex="1" parent="aws-cloud">
+          <mxGeometry x="560" y="40" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-r53" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.route_53;fontFamily=Helvetica;" value="Route 53&lt;div&gt;&lt;i&gt;failover routing&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-r53">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ACM Tokyo -->
+        <mxCell id="svc-group-acm-tky" style="fillColor=#FFEBEE;strokeColor=#DD344C;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#DD344C;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Security" vertex="1" parent="aws-cloud">
+          <mxGeometry x="80" y="40" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-acm-tky" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.certificate_manager_3;fontFamily=Helvetica;" value="ACM&lt;div&gt;&lt;i&gt;Tokyo TLS cert&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-acm-tky">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ACM Osaka -->
+        <mxCell id="svc-group-acm-osk" style="fillColor=#FFEBEE;strokeColor=#DD344C;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#DD344C;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Security" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1170" y="40" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-acm-osk" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#DD344C;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.certificate_manager_3;fontFamily=Helvetica;" value="ACM&lt;div&gt;&lt;i&gt;Osaka TLS cert&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-acm-osk">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- TOKYO REGION (decoration, container=0) -->
+        <mxCell id="tokyo-region" style="points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];shape=mxgraph.aws4.group_region;fillColor=light-dark(#0C7B7D0D,#0C7B7D0D);fillStyle=auto;strokeColor=#00A4A6;strokeWidth=2;fontStyle=1;fontSize=14;fontFamily=Helvetica;verticalAlign=top;align=left;spacingTop=5;fontColor=#00A4A6;container=0;pointerEvents=0;" value="ap-northeast-1 (Tokyo) — PRIMARY" vertex="1" parent="aws-cloud">
+          <mxGeometry x="20" y="190" width="580" height="570" as="geometry" />
+        </mxCell>
+
+        <!-- OSAKA REGION (decoration, container=0) -->
+        <mxCell id="osaka-region" style="points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];shape=mxgraph.aws4.group_region;fillColor=light-dark(#0C7B7D0D,#0C7B7D0D);fillStyle=auto;strokeColor=#00A4A6;strokeWidth=2;fontStyle=1;fontSize=14;fontFamily=Helvetica;verticalAlign=top;align=left;spacingTop=5;fontColor=#00A4A6;container=0;pointerEvents=0;" value="ap-northeast-3 (Osaka) — SECONDARY" vertex="1" parent="aws-cloud">
+          <mxGeometry x="770" y="190" width="580" height="570" as="geometry" />
+        </mxCell>
+
+        <!-- ALB Tokyo -->
+        <mxCell id="svc-group-alb-tky" style="fillColor=#EDE7F6;strokeColor=#8C4FFF;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#8C4FFF;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Load Balancer" vertex="1" parent="aws-cloud">
+          <mxGeometry x="50" y="250" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-alb-tky" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;fontFamily=Helvetica;" value="ALB&lt;div&gt;&lt;i&gt;public subnet&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-alb-tky">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- EC2 / ASG Tokyo -->
+        <mxCell id="svc-group-ec2-tky" style="fillColor=#FFF2E8;strokeColor=#ED7100;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#ED7100;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Compute" vertex="1" parent="aws-cloud">
+          <mxGeometry x="50" y="430" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-ec2-tky" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.autoscaling;fontFamily=Helvetica;" value="ASG / EC2&lt;div&gt;&lt;i&gt;Flask, private subnet&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-ec2-tky">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- SSM Tokyo -->
+        <mxCell id="svc-group-ssm-tky" style="fillColor=#F5F5F5;strokeColor=#666666;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#666666;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Management" vertex="1" parent="aws-cloud">
+          <mxGeometry x="240" y="430" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-ssm-tky" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.systems_manager;fontFamily=Helvetica;" value="SSM&lt;div&gt;&lt;i&gt;VPC endpoint&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-ssm-tky">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- S3 Tokyo -->
+        <mxCell id="svc-group-s3-tky" style="fillColor=#E8F5E9;strokeColor=#3F8624;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#3F8624;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Storage" vertex="1" parent="aws-cloud">
+          <mxGeometry x="50" y="640" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-s3-tky" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#3F8624;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fontFamily=Helvetica;" value="S3&lt;div&gt;&lt;i&gt;app code (Tokyo)&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-s3-tky">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- ALB Osaka -->
+        <mxCell id="svc-group-alb-osk" style="fillColor=#EDE7F6;strokeColor=#8C4FFF;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#8C4FFF;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Load Balancer" vertex="1" parent="aws-cloud">
+          <mxGeometry x="800" y="250" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-alb-osk" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.elastic_load_balancing;fontFamily=Helvetica;" value="ALB&lt;div&gt;&lt;i&gt;public subnet&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-alb-osk">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- EC2 / ASG Osaka -->
+        <mxCell id="svc-group-ec2-osk" style="fillColor=#FFF2E8;strokeColor=#ED7100;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#ED7100;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Compute" vertex="1" parent="aws-cloud">
+          <mxGeometry x="800" y="430" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-ec2-osk" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.autoscaling;fontFamily=Helvetica;" value="ASG / EC2&lt;div&gt;&lt;i&gt;Flask, private subnet&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-ec2-osk">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- SSM Osaka -->
+        <mxCell id="svc-group-ssm-osk" style="fillColor=#F5F5F5;strokeColor=#666666;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#666666;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Management" vertex="1" parent="aws-cloud">
+          <mxGeometry x="990" y="430" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-ssm-osk" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#666666;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.systems_manager;fontFamily=Helvetica;" value="SSM&lt;div&gt;&lt;i&gt;VPC endpoint&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-ssm-osk">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- S3 Osaka -->
+        <mxCell id="svc-group-s3-osk" style="fillColor=#E8F5E9;strokeColor=#3F8624;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#3F8624;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Storage" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1200" y="640" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-s3-osk" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#3F8624;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;fontFamily=Helvetica;" value="S3&lt;div&gt;&lt;i&gt;app code (Osaka)&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-s3-osk">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- DynamoDB Global Table -->
+        <mxCell id="svc-group-dynamo" style="fillColor=#F5E6F7;strokeColor=#C925D1;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#C925D1;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Database" vertex="1" parent="aws-cloud">
+          <mxGeometry x="570" y="640" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-dynamo" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#C925D1;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;fontFamily=Helvetica;" value="DynamoDB&lt;div&gt;&lt;i&gt;Global Table&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-dynamo">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- CloudWatch Auxiliary -->
+        <mxCell id="aux-box" style="rounded=0;fillColor=none;dashed=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#666666;fontFamily=Helvetica;strokeColor=#666666;strokeWidth=1.5;html=1;container=0;pointerEvents=0;" value="Auxiliary Services" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1228" y="228" width="142" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-group-cw" style="fillColor=#F5F5F5;strokeColor=#666666;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontStyle=1;fontSize=12;fontColor=#666666;fontFamily=Helvetica;container=1;collapsible=0;shadow=1;strokeWidth=1.5;" value="Monitoring" vertex="1" parent="aws-cloud">
+          <mxGeometry x="1240" y="250" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="svc-cw" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#E7157B;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=10;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudwatch_2;fontFamily=Helvetica;" value="CloudWatch&lt;div&gt;&lt;i&gt;CPU scaling alarms&lt;/i&gt;&lt;/div&gt;" vertex="1" parent="svc-group-cw">
+          <mxGeometry x="36" y="30" width="48" height="48" as="geometry" />
+        </mxCell>
+
+        <!-- EDGES -->
+
+        <!-- 1: Users to Cloudflare -->
+        <mxCell id="edge-users-cloudflare" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="users-container" target="svc-group-cloudflare" exitX="1" exitY="0.5" exitDx="0" exitDy="0" entryX="0" entryY="0.5" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- 2: Cloudflare to Route 53 -->
+        <mxCell id="edge-cloudflare-r53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-cloudflare" target="svc-group-r53" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.5" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="318" y="310" />
+              <mxPoint x="670" y="310" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 3a: Route 53 to ALB Tokyo (PRIMARY) -->
+        <mxCell id="edge-r53-alb-tky" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-r53" target="svc-group-alb-tky" exitX="0.25" exitY="1" exitDx="0" exitDy="0" entryX="0.5" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="648" y="480" />
+              <mxPoint x="160" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-r53-alb-tky-label" value="PRIMARY" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;fontStyle=2;" connectable="0" vertex="1" parent="edge-r53-alb-tky">
+          <mxGeometry relative="1" x="-0.3" y="-10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 3b: Route 53 to ALB Osaka (SECONDARY, dashed) -->
+        <mxCell id="edge-r53-alb-osk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;dashed=1;" edge="1" parent="1" source="svc-group-r53" target="svc-group-alb-osk" exitX="0.75" exitY="1" exitDx="0" exitDy="0" entryX="0.5" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="692" y="490" />
+              <mxPoint x="910" y="490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-r53-alb-osk-label" value="SECONDARY" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;fontStyle=2;" connectable="0" vertex="1" parent="edge-r53-alb-osk">
+          <mxGeometry relative="1" x="0.3" y="-10" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 4a: ACM Tokyo to ALB Tokyo -->
+        <mxCell id="edge-acm-tky-alb-tky" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="svc-group-acm-tky" target="svc-group-alb-tky" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.25" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="460" />
+              <mxPoint x="130" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 4b: ACM Osaka to ALB Osaka -->
+        <mxCell id="edge-acm-osk-alb-osk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;dashed=1;endArrow=open;endFill=0;" edge="1" parent="1" source="svc-group-acm-osk" target="svc-group-alb-osk" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.75" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1280" y="460" />
+              <mxPoint x="940" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 4c: ALB Tokyo to EC2 Tokyo (port 8080) -->
+        <mxCell id="edge-alb-tky-ec2-tky" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-alb-tky" target="svc-group-ec2-tky" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.5" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-alb-tky-ec2-tky-label" value="port 8080" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;" connectable="0" vertex="1" parent="edge-alb-tky-ec2-tky">
+          <mxGeometry relative="1" x="0.3" y="0" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ALB Osaka to EC2 Osaka -->
+        <mxCell id="edge-alb-osk-ec2-osk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-alb-osk" target="svc-group-ec2-osk" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.5" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-alb-osk-ec2-osk-label" value="port 8080" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;" connectable="0" vertex="1" parent="edge-alb-osk-ec2-osk">
+          <mxGeometry relative="1" x="0.3" y="0" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 5: EC2 Tokyo to DynamoDB -->
+        <mxCell id="edge-ec2-tky-dynamo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-ec2-tky" target="svc-group-dynamo" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.25" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="880" />
+              <mxPoint x="650" y="880" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-ec2-tky-dynamo-label" value="read / write" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;" connectable="0" vertex="1" parent="edge-ec2-tky-dynamo">
+          <mxGeometry relative="1" x="0" y="-12" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EC2 Osaka to DynamoDB -->
+        <mxCell id="edge-ec2-osk-dynamo" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-ec2-osk" target="svc-group-dynamo" exitX="0.5" exitY="1" exitDx="0" exitDy="0" entryX="0.75" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="890" />
+              <mxPoint x="690" y="890" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 6: DynamoDB global replication label -->
+        <mxCell id="dynamo-repl-label" value="&lt;div&gt;&lt;i&gt;Global Table replication&lt;/i&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontFamily=Helvetica;labelBackgroundColor=none;fontColor=#C925D1;" vertex="1" parent="aws-cloud">
+          <mxGeometry x="490" y="780" width="200" height="30" as="geometry" />
+        </mxCell>
+
+        <!-- 7: EC2 Tokyo to S3 Tokyo -->
+        <mxCell id="edge-ec2-tky-s3-tky" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-ec2-tky" target="svc-group-s3-tky" exitX="0" exitY="0.5" exitDx="0" exitDy="0" entryX="0" entryY="0.5" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="70" y="780" />
+              <mxPoint x="70" y="990" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-ec2-tky-s3-tky-label" value="startup download" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;" connectable="0" vertex="1" parent="edge-ec2-tky-s3-tky">
+          <mxGeometry relative="1" x="0" y="-12" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EC2 Osaka to S3 Osaka -->
+        <mxCell id="edge-ec2-osk-s3-osk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-ec2-osk" target="svc-group-s3-osk" exitX="1" exitY="0.5" exitDx="0" exitDy="0" entryX="0.5" entryY="0" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1060" y="780" />
+              <mxPoint x="1310" y="780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- 8: SSM Tokyo to EC2 Tokyo -->
+        <mxCell id="edge-ssm-tky-ec2-tky" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-ssm-tky" target="svc-group-ec2-tky" exitX="0" exitY="0.5" exitDx="0" exitDy="0" entryX="1" entryY="0.5" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-ssm-tky-ec2-tky-label" value="Session Manager" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=none;fontSize=11;fontFamily=Helvetica;" connectable="0" vertex="1" parent="edge-ssm-tky-ec2-tky">
+          <mxGeometry relative="1" x="0" y="-12" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- SSM Osaka to EC2 Osaka -->
+        <mxCell id="edge-ssm-osk-ec2-osk" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontFamily=Helvetica;fontSize=11;labelBackgroundColor=none;" edge="1" parent="1" source="svc-group-ssm-osk" target="svc-group-ec2-osk" exitX="0" exitY="0.5" exitDx="0" exitDy="0" entryX="1" entryY="0.5" entryDx="0" entryDy="0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- STEP BADGES (on-diagram) -->
+        <!-- Badge 1 -->
+        <mxCell id="step-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="1" vertex="1" parent="1">
+          <mxGeometry x="196" y="196" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 2 -->
+        <mxCell id="step-2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="2" vertex="1" parent="1">
+          <mxGeometry x="296" y="298" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 3 -->
+        <mxCell id="step-3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="3" vertex="1" parent="1">
+          <mxGeometry x="622" y="448" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 4 -->
+        <mxCell id="step-4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="4" vertex="1" parent="1">
+          <mxGeometry x="148" y="638" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 5 -->
+        <mxCell id="step-5" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="5" vertex="1" parent="1">
+          <mxGeometry x="388" y="868" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 6 -->
+        <mxCell id="step-6" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="6" vertex="1" parent="1">
+          <mxGeometry x="608" y="918" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 7 -->
+        <mxCell id="step-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="7" vertex="1" parent="1">
+          <mxGeometry x="58" y="858" width="28" height="28" as="geometry" />
+        </mxCell>
+        <!-- Badge 8 -->
+        <mxCell id="step-8" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=16;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;align=center;verticalAlign=middle;labelBackgroundColor=none;" value="8" vertex="1" parent="1">
+          <mxGeometry x="266" y="768" width="28" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- RIGHT SIDEBAR LEGEND -->
+        <mxCell id="legend-bg" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=20;indent=5;fillColor=light-dark(#EDF3FF,#305363);strokeColor=#6c8ebf;" value="" vertex="1" parent="1">
+          <mxGeometry x="1490" y="30" width="640" height="840" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=18;fontStyle=1;fontFamily=Helvetica;labelBackgroundColor=none;" value="Request Flow" vertex="1" parent="1">
+          <mxGeometry x="1510" y="42" width="600" height="28" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 1 -->
+        <mxCell id="leg-step-1-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="80" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-1-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="1" vertex="1" parent="leg-step-1-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-1-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;DNS Resolution&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;User browser sends DNS query to Cloudflare&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-1-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 2 -->
+        <mxCell id="leg-step-2-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="170" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-2-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="2" vertex="1" parent="leg-step-2-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-2-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;NS Delegation&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;Cloudflare delegates to Route 53 hosted zone via NS records&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-2-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 3 -->
+        <mxCell id="leg-step-3-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="260" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-3-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="3" vertex="1" parent="leg-step-3-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-3-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;Failover Routing&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;Route 53 routes to Tokyo ALB (PRIMARY). If health check fails, failover to Osaka (SECONDARY)&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-3-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 4 -->
+        <mxCell id="leg-step-4-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="350" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-4-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="4" vertex="1" parent="leg-step-4-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-4-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;TLS Termination + Forward&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;ALB terminates HTTPS via ACM cert, forwards HTTP to EC2 on port 8080 (private subnet)&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-4-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 5 -->
+        <mxCell id="leg-step-5-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="440" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-5-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="5" vertex="1" parent="leg-step-5-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-5-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;App Reads / Writes DynamoDB&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;Flask app on EC2 reads and writes portfolio-messages table via DynamoDB Gateway endpoint&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-5-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 6 -->
+        <mxCell id="leg-step-6-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="530" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-6-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="6" vertex="1" parent="leg-step-6-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-6-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;DynamoDB Global Table Replication&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;DynamoDB automatically replicates data between Tokyo and Osaka (streams enabled)&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-6-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 7 -->
+        <mxCell id="leg-step-7-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="620" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-7-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="7" vertex="1" parent="leg-step-7-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-7-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;App Code Download (Startup)&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;EC2 user-data downloads Flask app + wheels from S3 on launch, via S3 Gateway endpoint&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-7-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend Step 8 -->
+        <mxCell id="leg-step-8-group" connectable="0" style="group;fontFamily=Helvetica;" value="" vertex="1" parent="1">
+          <mxGeometry x="1510" y="710" width="600" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-8-badge" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#007CBD;strokeColor=default;fontColor=#FFFFFF;fontStyle=1;fontSize=22;labelBackgroundColor=none;fontFamily=Helvetica;shadow=1;glass=0;strokeWidth=2;" value="8" vertex="1" parent="leg-step-8-group">
+          <mxGeometry width="40" height="38" y="2" as="geometry" />
+        </mxCell>
+        <mxCell id="leg-step-8-text" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=14;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;" value="&lt;div&gt;&lt;b&gt;SSM Session Manager Access&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;color: light-dark(rgb(0,0,0), rgb(255,255,255));&quot;&gt;Engineers access EC2 via SSM Session Manager through VPC Interface Endpoint — no public IP, no SSH&lt;/span&gt;&lt;/div&gt;" vertex="1" parent="leg-step-8-group">
+          <mxGeometry x="52" width="548" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legend note: Auxiliary / Line styles -->
+        <mxCell id="leg-note" style="text;html=1;align=left;verticalAlign=top;spacingTop=-4;fontSize=12;labelBackgroundColor=none;whiteSpace=wrap;fontFamily=Helvetica;fontStyle=2;" value="* CloudWatch monitors EC2 CPU; alarms trigger ASG scale-out (&gt;70%) / scale-in (&lt;30%)" vertex="1" parent="1">
+          <mxGeometry x="1510" y="800" width="600" height="30" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

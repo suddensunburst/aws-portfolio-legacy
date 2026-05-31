@@ -118,5 +118,3 @@ aws autoscaling start-instance-refresh --auto-scaling-group-name portfolio-osaka
 ```
 
 ---
-
-[日本語](README.md)

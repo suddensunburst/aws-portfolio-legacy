@@ -13,3 +13,15 @@ variable "main_domain" {
   description = "The root domain name"
   type        = string
 }
+
+variable "datadog_api_key" {
+  description = "Datadog API Key"
+}
+
+variable "datadog_app_key" {
+  description = "Datadog APP Key"
+}
+
+variable "datadog_api_url" {
+  description = "Datadog API URL"
+}
